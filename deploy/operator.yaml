@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vilicus-kubernetes-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: vilicus-kubernetes-operator
+  template:
+    metadata:
+      labels:
+        name: vilicus-kubernetes-operator
+    spec:
+      serviceAccountName: vilicus-kubernetes-operator
+      containers:
+        - name: vilicus-kubernetes-operator
+          # Replace this with the built image name
+          image: REPLACE_IMAGE
+          command:
+          - vilicus-kubernetes-operator
+          imagePullPolicy: Always
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OPERATOR_NAME
+              value: "vilicus-kubernetes-operator"

@@ -1,0 +1,11 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: vilicus-kubernetes-operator
+subjects:
+- kind: ServiceAccount
+  name: vilicus-kubernetes-operator
+roleRef:
+  kind: Role
+  name: vilicus-kubernetes-operator
+  apiGroup: rbac.authorization.k8s.io
